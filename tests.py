@@ -33,7 +33,9 @@ class TestBooksCollector:
 
     def test_get_books_genre_with_exist_genre(self):
         collector = BooksCollector()
-        assert collector.get_books_genre() != None
+        collector.add_new_book("Трое в лодке, не считая собаки")
+        collector.set_book_genre("Трое в лодке, не считая собаки", "Комедии")
+        assert collector.get_books_genre() == {"Трое в лодке, не считая собаки": "Комедии"}
 
     def test_get_books_for_children_with_allowed_genre(self):
         collector = BooksCollector()
@@ -59,3 +61,9 @@ class TestBooksCollector:
         collector.add_book_in_favorites("Незнайка на Луне")
         collector.delete_book_from_favorites("Незнайка на Луне")
         assert collector.get_list_of_favorites_books() == []
+
+    def test_get_list_of_favorites_books_add_valid_new_book(self):
+        collector = BooksCollector()
+        collector.add_new_book("Мастер и Маргарита")
+        collector.add_book_in_favorites("Мастер и Маргарита")
+        assert collector.get_list_of_favorites_books() == ["Мастер и Маргарита"]
